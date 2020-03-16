@@ -1,0 +1,21 @@
+X#include "WyrazenieZesp.hh"
+#include <iostream>
+void Wyswietl(LZespolona liczba)
+{
+
+  std::cout <<liczba.re<<" "<<std::showpos<<liczba.im;
+}
+/*
+
+LZespolona Oblicz(WyrazenieZesp WyrZ){
+}
+
+*/
+
+
+
+
+/*
+ * Tu nalezy zdefiniowac funkcje, ktorych zapowiedzi znajduja sie
+ * w pliku naglowkowym.
+ */
