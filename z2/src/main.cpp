@@ -5,10 +5,7 @@
 #include<string>
 #include <cstdlib>
 
-using namespace std;
-
-
-
+/*
 int main(int argc, char **argv)
 {
   const char *c;
@@ -19,16 +16,12 @@ int main(int argc, char **argv)
     cout << endl;
     return 1;
   }
-
-
+   
   BazaTestu   BazaT = { nullptr, 0, 0 };
 
   if (InicjalizujTest(&BazaT,argv[1]) == false) {
     cerr << " Inicjalizacja testu nie powiodla sie." << endl;
-    return 1;
-  }
-
-
+  }  
   
   cout << endl;
   cout << " Start testu arytmetyki zespolonej: " << argv[1] << endl;
@@ -127,9 +120,46 @@ int main(int argc, char **argv)
   cout<<"\n"<<"Liczba pytan - "<<z;
   cout<<"\n"<<"Liczba prawidlowych odpowiedzi - "<<z-y;
   cout<<"\n"<<"Liczba niepoprawnych odpowiedzi - "<<y<<"\n";
-  }
-
-  
-
+}
+*/
 
 
+int main (){
+  LZespolona wynik,w2;
+  WyrazenieZesp w1; 
+
+ std::cout<<"Podaj wyrazenie zespolone:"<<"\n";
+ std::cin>>w1;  /* Wczytuje wyrazenie zespolone wpisane przez uzytkownika*/
+ switch(w1.Op){   /*Sprawdza w zaleznosci od parametru w1.Op jakie dzialanie trzeba wykonac oraz je wykonuje */
+ case 0:
+   wynik = operator +(w1.Arg1,w1.Arg2);
+   break;
+ case 1:
+   wynik = operator -(w1.Arg1,w1.Arg2);
+   break;
+ case 2:
+   wynik = operator *(w1.Arg1,w1.Arg2);
+   break;
+ case 3:
+   try{
+  wynik = operator /(w1.Arg1,w1.Arg2);
+   }                                      /* Obsluga wyjatkow w przypadku dzielenia przez 0*/
+      catch (const char* msg) {
+	std::cout << msg;
+      return 0;
+      }
+   break;
+ }
+
+ std::cout<<"Podaj swoj wynik:"<<"\n";
+ std::cin>>w2; /*Wczytuje wynik podany przez uzytkownika */
+ if(w2.re==wynik.re&&w2.im==wynik.im){ /*Sprawdza podany wynik z wynikiem prawidlowym*/
+   std::cout<<"Wynik prawidlowy!!"<<"\n";
+ }
+ else{                          /*Jesli wyniki sa zgodne wyswietla sie napis "Wynik prawidlowy"
+                                 jesli nie wypisuje tekst na strumieniu bledow "Blad!!Prawidlowy wynik" oraz  wypisuje prawidlowy wynik */
+   
+   std::cerr<<"Blad!! Prawidlowy wynik:"<<"\n";
+   std::cout<<wynik<<"\n";
+ }
+}
