@@ -13,7 +13,7 @@ static WyrazenieZesp  TestLatwy[] =
   { {{2,1}, Op_Dodaj, {1,2}},
     {{1,0}, Op_Odejmij, {0,1}},
     {{3,0}, Op_Mnoz, {0,3}},
-    {{4,8}, Op_Dziel, {0,0}},
+    {{4,8}, Op_Dziel, {4,3}},
   };
 
 /*

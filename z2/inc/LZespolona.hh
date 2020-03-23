@@ -16,6 +16,10 @@ class  LZespolona {
 public:
   float   re;    /*! Pole repezentuje czesc rzeczywista. */
   float   im;    /*! Pole repezentuje czesc urojona. */
+
+  friend std::istream & operator >> (std::istream & strm, LZespolona &Z1);
+  friend std::ostream & operator << (std::ostream & strm, const LZespolona &wynik);
+  friend bool operator ==(LZespolona & w1, LZespolona & w2);  
 };
 
 

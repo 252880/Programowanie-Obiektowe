@@ -6,9 +6,9 @@ FLAGS= -Wall -pedantic -std=c++14 -iquote inc
 __start__: ${TRGDIR}/test_arytm_zesp
 	${TRGDIR}/test_arytm_zesp  latwy
 
-${TRGDIR}/test_arytm_zesp: ${OBJ} ${OBJ}/main.o ${OBJ}/LZespolona.o\
+${TRGDIR}/test_arytm_zesp: ${OBJ} ${OBJ}/main.o ${OBJ}/LZespolona.o ${OBJ}/statystyki.o\
                      ${OBJ}/WyrazenieZesp.o ${OBJ}/BazaTestu.o ${OBJ}/BazaTestu.o
-	g++ -o ${TRGDIR}/test_arytm_zesp ${OBJ}/main.o ${OBJ}/LZespolona.o\
+	g++ -o ${TRGDIR}/test_arytm_zesp ${OBJ}/main.o ${OBJ}/LZespolona.o ${OBJ}/statystyki.o\
                      ${OBJ}/WyrazenieZesp.o ${OBJ}/BazaTestu.o
 
 ${OBJ}:
@@ -32,6 +32,8 @@ ${OBJ}/BazaTestu.o: src/BazaTestu.cpp inc/BazaTestu.hh inc/WyrazenieZesp.hh\
                        inc/LZespolona.hh
 	g++ -c ${FLAGS} -o ${OBJ}/BazaTestu.o src/BazaTestu.cpp
 
+${OBJ}/statystyki.o: src/statystyki.cpp inc/statystyki.hh
+	g++ -c ${FLAGS} -o ${OBJ}/statystyki.o src/statystyki.cpp
 
 
 

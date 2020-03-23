@@ -23,16 +23,10 @@ public:
   LZespolona   Arg2;   // Drugi argument wyrazenia arytmetycznego
 
 friend std::istream & operator >> (std::istream & strm, WyrazenieZesp & wyraz);
+friend std::ostream & operator << (std::ostream & strm, WyrazenieZesp & w1);
 };
- std::istream & operator >> (std::istream & strm, LZespolona &Z1);
- std::ostream & operator << (std::ostream & strm, const LZespolona &wynik);
 
-
-
-/*
- * Funkcje ponizej nalezy zdefiniowac w module.
- *
- */
-
+ 
+LZespolona operacja(WyrazenieZesp & wyraz);
 
 #endif

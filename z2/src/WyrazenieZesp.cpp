@@ -1,39 +1,12 @@
 #include "WyrazenieZesp.hh"
 #include <iostream>
 #include <cstdlib>
+ 
 
-/* Przeciazenie operatora >> dla  kalsy LZeolona oraz sprawdznie 
-czy  wprowadzone dane sa zgodne z przyjeta forma zapisywania
-liczy zespolonej tzn.(x+yi). Bledny zapis skutkuje zatrzymaniem
-sie programu i wypisaniem tekstu na strumieniu bledow "Blednie
-wpisana liczba zaspolona!!" 
- */  
-std::istream & operator >> (std::istream & strm, LZespolona &Z1){
-  char znak,znak1,znak3,znak4;
-  strm>>znak>>Z1.re>>znak1>>Z1.im>>znak3>>znak4;
-  if(znak!='('){
-    strm.setstate(std::ios::failbit);
-  }
-  if(znak1=='-'){
-    Z1.im=(-Z1.im);
-  }
-  if(znak3!='i'){
-    strm.setstate(std::ios::failbit);
-  }
-  if(znak4!=')'){
-    strm.setstate(std::ios::failbit);
-  }
-
-  if(strm.rdstate()==std::ios::failbit){
-    std::cerr<<"Blednie wpisana liczba zespolona!!"<<"\n";
-    exit(0);   
-  }
-  return strm; 
-}
 /*Przeciazenie operatora >> dla klasy WyrazenieZesp  */
 
-
-std::istream & operator >> (std::istream & strm, WyrazenieZesp & wyraz) {
+ 
+std::istream & operator >> (std::istream & strm, WyrazenieZesp & wyraz){
   char znak;
   strm >> wyraz.Arg1;
   strm >> znak;
@@ -50,12 +23,47 @@ std::istream & operator >> (std::istream & strm, WyrazenieZesp & wyraz) {
   }
   return strm;
 }
-/*Przeciazenie operatora << dla klasy Lzespolona*/
-std::ostream & operator << (std::ostream & strm, const LZespolona & wynik) {
-  strm<<'(';
-  strm<<wynik.re;
-  strm<<std::showpos<<wynik.im<<std::noshowpos;
-  strm<<'i';
-  strm<<')';
-  return strm;  
+LZespolona operacja( WyrazenieZesp & wyraz){ 
+  LZespolona wynik;
+  switch(wyraz.Op){   /*Sprawdza w zaleznosci od parametru w1.Op jakie dzialanie trzeba wykonac oraz je wykonuje */
+  case 0:
+    wynik = operator +(wyraz.Arg1,wyraz.Arg2);
+    break;
+  case 1:
+    wynik = operator -(wyraz.Arg1,wyraz.Arg2);
+    break;
+  case 2:
+    wynik = operator *(wyraz.Arg1,wyraz.Arg2);
+    break;
+  case 3:
+    try{
+      wynik = operator /(wyraz.Arg1,wyraz.Arg2);
+    }                                      /* Obsluga wyjatkow w przypadku dzielenia przez 0*/
+    catch (const char* msg) {
+      std::cout << msg;
+      exit(0);    
+    }                                                                                                                                                                        break;
+}
+return wynik;
+}
+
+/* Przeciazenie operatora << dla klasy WyrazenieZesp */  
+std::ostream & operator << (std::ostream & strm, WyrazenieZesp & w1){
+  char znak;
+  switch(w1.Op){
+  case 0: znak='+';
+    break;
+  case 1: znak='-';
+    break;
+  case 2: znak='*';
+    break;
+  case 3: znak='/';
+    break;
+  }
+
+
+
+  return strm<<w1.Arg1<<znak<<w1.Arg2;
+
+
 }
