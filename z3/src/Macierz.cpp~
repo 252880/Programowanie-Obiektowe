@@ -1,0 +1,236 @@
+#include "Macierz.hh"
+#include"Wektor.hh"
+#include <cmath>
+
+
+
+/* konstruktory */
+
+
+
+Macierz::Macierz(){                            // Ustawienie wszystkich skladowych macierzy na 0
+  
+  for (int x=0;x < ROZMIAR; ++x)
+    for (int z=0;z < ROZMIAR; ++z)
+      (*this)[z][x] = 0; 
+  }
+
+
+Macierz::Macierz(const Wektor *W2){                           // ustawienie poszczegolnych wierszy macierzy obiektami klasy Wektor
+  
+  
+  for (int x=0;x<ROZMIAR; x++)
+    (*this)[x] = W2[x];
+}
+
+
+
+/* Metody operatorow arytmetycznych */
+
+
+
+const Macierz Macierz:: transpozycja() const{                    // transpozycja macierzy 
+
+  Macierz T;
+ 
+
+  for(int x=0;x<ROZMIAR;x++)
+    for(int y=0;y<ROZMIAR;y++)
+      T[y][x]=(*this)[x][y];
+
+  return T;
+  
+}
+
+
+Wektor Macierz :: operator * ( const Wektor &W3) const{
+  Wektor M;
+
+  for(int x=0;x<ROZMIAR;x++)
+  
+    M[x]=(*this)[x]*W3;
+
+  return M;
+}
+
+
+Macierz Macierz:: operator * (const Macierz & W3) const{
+  Macierz T,X;
+
+  X=W3.transpozycja();
+
+  for(int x=0;x<ROZMIAR;x++)
+    for(int y=0;y<ROZMIAR;y++)
+      T[x][y]=(*this)[x]*X[y];
+
+  return T;
+}
+
+
+
+    
+Macierz Macierz:: operator + (const Macierz &W3)const{
+
+  Macierz D;
+
+  for(int x=0;x<ROZMIAR;x++)
+    D[x]=W3[x]+(*this)[x];
+
+  return D;
+}
+  
+Macierz Macierz::operator - (const Macierz &W3)const{
+
+  Macierz O;
+
+  for(int x=0;x<ROZMIAR;x++)
+    O[x]=(*this)[x]-W3[x];
+  
+  return O;
+}
+
+
+
+
+Macierz Macierz:: operator * (double l)const{
+
+  Macierz M;
+
+  for(int x=0;x<ROZMIAR;x++)
+    M[x]=(*this)[x]*l;
+
+  return M;
+}
+
+
+
+
+const Macierz Macierz::Zmienkolumny(int x, int y) const{
+
+  Macierz K,T;
+
+  T=(*this).transpozycja();
+  K=*this;
+  
+  K[x]=T[y];
+  K[y]=T[x];
+
+ T=K.transpozycja();
+
+  return T;
+}
+
+const Macierz Macierz :: Zmienwiersze(int x, int y)const{
+
+  Macierz W=*this;
+
+  W[x]=(*this)[y];
+  W[y]=(*this)[x];
+
+    return W;
+}
+
+
+
+
+
+
+double Macierz:: wyznacznikGauss() const{
+  const float eps=1e-12;  
+  Macierz P= *this;
+  double i=0;
+  double W=1;
+  
+  for(int x=0;x<ROZMIAR-1;x++){
+    for(int y=x+1;y<ROZMIAR;y++){
+      
+      if(std::abs(P[x][x])> eps){
+
+	i=P[y][x]/P[x][x];
+
+	P[y]=P[y]-(P[x]*i); 
+	
+      }
+
+      else{
+	if(P[0][0]<eps){
+	  for(int q=1;q<ROZMIAR;q++){
+
+	    if(std::abs(P[q][0])>eps){
+	      P= P.Zmienwiersze(q,0);
+	      q=ROZMIAR;
+	  }
+	  }
+	}
+	  else{
+	for(int z=x+1;z<ROZMIAR;z++){
+	  if(std::abs(P[x][z])> eps){ 
+	     P = P.Zmienkolumny(x,z);
+	     y=y-1;
+	    z=ROZMIAR;
+	  }
+	}
+	}       
+      }
+
+    }
+  }
+
+  for(int e=0;e<ROZMIAR;e++){
+    W= W*P[e][e];
+  }
+	return W;
+}
+
+
+
+
+const Wektor  & Macierz::operator[] (int index) const
+{
+  if (index < 0 || index >= ROZMIAR){
+    
+      std::cerr << "poza zakresem" << std::endl;
+      exit(1);
+    }
+
+  return this->tab[index];
+}
+
+Wektor & Macierz::operator[] (int index){
+  
+  if (index < 0 || index >= ROZMIAR){
+    
+      std::cerr << "poza zakresem" << std::endl;
+      exit(1);
+    }
+
+  return this->tab[index];
+}
+
+
+
+
+
+std::istream& operator >> (std::istream &strm, Macierz &M)
+{
+  for (int i = 0; i < ROZMIAR; i++)
+    {
+      strm>>M[i];
+    }
+  return strm;
+}
+
+
+std::ostream& operator << (std::ostream &strm, const Macierz &M)
+{
+
+  for (int i = 0; i < ROZMIAR; i++)
+    {
+      for (int z = 0; z < ROZMIAR; z++)
+	{
+	  strm << M[i][z]<<" ";
+	}
+      strm  << std::endl;
+    }
+  return strm;
+}

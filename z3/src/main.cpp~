@@ -1,0 +1,31 @@
+#include <iostream>
+#include "Wektor.hh"
+#include "Macierz.hh"
+#include "UkladRownanLiniowych.hh"
+ 
+using namespace std;
+
+/*
+ * Tu definiujemy pozostale funkcje.
+ * Lepiej jednak stworzyc dodatkowy modul
+ * i tam je umiescic. Ten przyklad pokazuje
+ * jedynie absolutne minimum.
+ */
+
+int main()
+{
+
+  UkladRownanLiniowych   UklRown;   // To tylko przykladowe definicje zmiennej
+  Wektor a;
+  Macierz M1;
+  double i=0;
+  std::cin >> a;
+   std::cout << "Macierz A1:"<< std::endl << M1 << std::endl;
+
+   i=a.dlugosc();
+  
+
+ std:cout<<i;
+
+  cout << endl << " Start programu " << endl << endl;
+}
