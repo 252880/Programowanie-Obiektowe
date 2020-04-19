@@ -61,14 +61,20 @@ Wektor UkladRownanL :: oblicz() const {
 	    std::swap(W[x],W[z]);            //Jesli zmieniamy wiersze w macierzy to skladowe wektora takze trzeba zamienic miejscami   
 	    z=ROZMIAR;
 	  }
-	 
+	  else {
+	    std::cerr << "Brak zmiennej x" << x+1 <<std::endl;            //Blad jesli cala koloumna jest rowna 0
+	    exit(1);
 	}
       }
     }
+    }
   }
-  
   for (int a = ROZMIAR-1; a > -eps; a--){
-   
+    if(std::abs(P[a][a])<eps){
+
+      std::cerr << "Blad dzielenie przez 0 !" << std::endl;     //Blad jesli dzielimy przez  0 
+      exit(1);
+    }
     rozw[a]=(W[a]+(-1)*(P[a]*rozw))/P[a][a];    
     
   }
