@@ -17,10 +17,10 @@ public:
   Wektor(double x, double y, double z);
   Wektor(double * tab);
 
-const Wektor operator + (const  Wektor & W1) const;
-const Wektor  operator - (const Wektor & W1)const;
-double operator * (const Wektor & W1)const;
-const Wektor  operator * (double li)const;
+ Wektor operator + (const  Wektor & W1) const;
+ Wektor  operator - (const Wektor & W1)const;
+ double operator * (const Wektor & W1)const;
+ Wektor  operator * (double li)const;
 
 double dlugosc() const;
 

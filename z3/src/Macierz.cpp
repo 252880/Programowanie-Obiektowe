@@ -30,7 +30,7 @@ Macierz::Macierz(const Wektor *W2){                           // ustawienie posz
 
 
 
-const Macierz Macierz:: transpozycja() const{                    // transpozycja macierzy, zwraca macierz
+Macierz Macierz:: transpozycja() const{                    // transpozycja macierzy, zwraca macierz
 
   Macierz T;
  
@@ -107,37 +107,36 @@ Macierz Macierz:: operator * (double l)const{                              // me
 
 
 
-const Macierz Macierz::Zmienkolumny(int x, int y) const{                   // metoda zamiany kolumn, zwraca macierz
+Macierz Macierz::Zmienkolumny(int x, int y){                   // metoda zamiany kolumn, zwraca macierz
 
-  Macierz K,T;
+  Macierz K;
 
-  T=(*this).transpozycja();
-  K=*this;
+  K=(*this).transpozycja();
   
-  K[x]=T[y];
-  K[y]=T[x];
+  K[x]=(*this)[y];
+  K[y]=(*this)[x];
 
- T=K.transpozycja();
+  *this=K.transpozycja();
 
-  return T;
+  return *this;
 }
 
 
 
-const Macierz Macierz :: Zmienwiersze(int x, int y)const{                         // metoda zamiany wierszy, zwraca macierz
+Macierz Macierz :: Zmienwiersze(int x, int y){                         // metoda zamiany wierszy, zwraca macierz
 
   Macierz W=*this;
 
-  W[x]=(*this)[y];
-  W[y]=(*this)[x];
+  (*this)[y]=W[x];
+  (*this)[x]=W[y];
 
-    return W;
+    return *this;
 }
 
 
 
 double Macierz:: wyznacznikGauss() const{                            // metoda liczenia wyznacznika metoda Gaussa, zwraca liczbe typu double
-  const float eps=1e-12;  
+  
   Macierz P= *this;
   double i=0;
   double W=1;
@@ -154,23 +153,13 @@ double Macierz:: wyznacznikGauss() const{                            // metoda l
       }
 
       else{
-	if(P[0][0]<eps){
-	  for(int q=1;q<ROZMIAR;q++){
-
-	    if(std::abs(P[q][0])>eps){
-	      P= P.Zmienwiersze(q,0);
-	      q=ROZMIAR;
-	  }
-	  }
-	}
-	  else{
+	 
 	for(int z=x+1;z<ROZMIAR;z++){
 	  if(std::abs(P[x][z])> eps){ 
 	     P = P.Zmienkolumny(x,z);
-	     y=y-1;
-	    z=ROZMIAR;
+	     z=ROZMIAR;
 	  }
-	}
+	
 	}       
       }
 
@@ -189,8 +178,8 @@ double Macierz:: wyznacznikGauss() const{                            // metoda l
 
 
 
-const Wektor  & Macierz::operator[] (int index) const
-{
+const Wektor  & Macierz::operator[] (int index) const{
+
   if (index < 0 || index >= ROZMIAR){
     
       std::cerr << "poza zakresem" << std::endl;
@@ -232,12 +221,21 @@ std::istream& operator >> (std::istream &strm, Macierz &M){                // pr
 
 std::ostream& operator << (std::ostream &strm, const Macierz &M){                       // przeciazenie out wypisuje na ekran macierz
 
-
+  
   for (int i = 0; i < ROZMIAR; i++)
     {
+      strm<<"|";
+ 
       for (int z = 0; z < ROZMIAR; z++)
 	{
+	
 	  strm << M[i][z]<<" ";
+	  
+	  if(z==ROZMIAR-1){
+	    strm<<"|";
+	  }
+
+
 	}
       strm  << std::endl;
     }

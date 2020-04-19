@@ -21,7 +21,7 @@ public:
   Wektor & operator[] (int index);
 
 
-  const Macierz  transpozycja() const;
+   Macierz  transpozycja() const;
 
      Wektor operator * (const Wektor &W3)const;
      Macierz operator * (const Macierz & W3)const;
@@ -30,8 +30,8 @@ public:
      Macierz operator * (double l)const;
 
 
-  const Macierz Zmienkolumny(int x,int y) const;
-  const Macierz Zmienwiersze(int x, int y) const;
+   Macierz Zmienkolumny(int x,int y);
+   Macierz Zmienwiersze(int x, int y);
 
   double wyznacznikGauss() const;
 

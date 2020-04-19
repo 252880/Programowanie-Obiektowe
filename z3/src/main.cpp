@@ -15,17 +15,12 @@ using namespace std;
 int main()
 {
 
-  UkladRownanLiniowych   UklRown;   // To tylko przykladowe definicje zmiennej
-  Wektor a;
-  Macierz M1;
-  double i=0;
-  std::cin >> M1;
-   std::cout << "Macierz A1:"<< std::endl << M1 << std::endl;
 
-   i=M1.wyznacznikGauss();
-  
+  UkladRownanL W;
+   
+  std::cin >> W;
 
- std:cout<<i;
+  std::cout<<W;   
 
   cout << endl << " Start programu " << endl << endl;
 }

@@ -36,7 +36,7 @@ Wektor::Wektor(double x,double y,double z)          // konstruktor przyjmujacy 3
 
 
 
-const Wektor  Wektor :: operator  + (const Wektor & W1) const {               // metoda dodajaca dwa wektory, zwracajaca wektor               
+ Wektor  Wektor :: operator  + (const Wektor & W1) const {               // metoda dodajaca dwa wektory, zwracajaca wektor               
   Wektor W;
   for(int x=0;x<ROZMIAR;x++){
     
@@ -48,7 +48,7 @@ const Wektor  Wektor :: operator  + (const Wektor & W1) const {               //
 
 
 
-const Wektor  Wektor :: operator - ( const Wektor & W1)const{               // metoda odejmujaca dwa wektory, zwraca wektor
+ Wektor  Wektor :: operator - ( const Wektor & W1)const{               // metoda odejmujaca dwa wektory, zwraca wektor
  Wektor W;  
   for(int x=0;x<ROZMIAR;x++){
     
@@ -61,7 +61,7 @@ const Wektor  Wektor :: operator - ( const Wektor & W1)const{               // m
 
 
 double Wektor :: operator * (const Wektor & W1) const{                     // metoda mnozaca dwa wektory, zwraca wektor
-  double  i;
+  double  i=0;
  
    for(int x=0;x<ROZMIAR;x++){
     
@@ -73,7 +73,7 @@ double Wektor :: operator * (const Wektor & W1) const{                     // me
 
 
 
-const Wektor  Wektor :: operator * ( double li)const{                      // metoda mozaca wektor z liczba typu double, zwraca wektor
+ Wektor  Wektor :: operator * ( double li)const{                      // metoda mozaca wektor z liczba typu double, zwraca wektor
 Wektor W;
 
  for(int x=0;x<ROZMIAR;x++){
@@ -87,7 +87,7 @@ Wektor W;
 
 
 double Wektor :: dlugosc () const{                                     // metoda liczaca dlugosc wektora, zwraca liczbe typu double 
-  double i;
+  double i=0;
 
   for(int x=0;x<ROZMIAR;x++){
     i+=(*this)[x]*(*this)[x];
@@ -134,7 +134,7 @@ std::ostream & operator << (std::ostream & strm, const Wektor & W1){    // Przec
 
   for(int i=0;i<ROZMIAR;i++){
     
-    strm<<W1[i];
+    strm<<W1[i]<<" ";
 }
   return strm;
 }
