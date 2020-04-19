@@ -17,10 +17,13 @@ int main()
 
 
   UkladRownanL W;
-   
-  std::cin >> W;
-
-  std::cout<<W;   
 
   cout << endl << " Start programu " << endl << endl;
-}
+
+  
+  std::cin >> W;
+
+  std::cout<<W;
+  
+  cout << endl << "Koniec programu " << endl << endl ;
+      }
